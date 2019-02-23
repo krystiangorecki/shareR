@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.List;
+import java.util.Set;
 
 public class DynamicUIGenerator {
 
@@ -19,7 +18,7 @@ public class DynamicUIGenerator {
         this.ctx = ctx;
     }
 
-    public void generateDynamicUI(LinearLayout linearLayout, List<String> numbers) {
+    public void generateDynamicUI(LinearLayout linearLayout, Set<String> numbers) {
         for (String number : numbers) {
             addNewRowWithLinearLayout(linearLayout, number);
         }
@@ -35,14 +34,14 @@ public class DynamicUIGenerator {
         parentLayout.addView(newLL);
 
         addTextView(newLL, number);
-        addButton(newLL, "r");
-        addButton(newLL, "g");
+        addButton(newLL, number, ButtonType.R);
+        addButton(newLL, number, ButtonType.G);
     }
 
-    private void addButton(LinearLayout linearLayout, String text) {
+    private void addButton(final LinearLayout linearLayout, final String number, final ButtonType type) {
         ContextThemeWrapper newContext = new ContextThemeWrapper(ctx, R.style.Widget_AppCompat_Button_Small);
         final Button newButton = new Button(newContext);
-        newButton.setText(text);
+        newButton.setText(type == ButtonType.R ? "r" : "g");
         newButton.setMinHeight(0);
         newButton.setMinimumHeight(0);
         newButton.setLayoutParams(new LinearLayout.LayoutParams(
@@ -51,8 +50,11 @@ public class DynamicUIGenerator {
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ctx,
-                        newButton.getText(), Toast.LENGTH_LONG).show();
+                if (type == ButtonType.R) {
+                    new PageVisiter(ctx).visitSearchPageR(number);
+                } else {
+                    new PageVisiter(ctx).visitSearchPageG(number);
+                }
             }
         });
         linearLayout.addView(newButton);
