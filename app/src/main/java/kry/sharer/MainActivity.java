@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private void processSharedText(String numberText) {
         // 123-123-123  asdf asdf 111 111 111 asdfasd fasd 777888999
         Pattern p = Pattern.compile("(\\d{3}.+?\\d{3}.+?\\d{3})|\\d{9}");
+        numberText = numberText.replaceAll(Pattern.quote("+48"), "");
         Matcher m = p.matcher(numberText);
         Set<String> numbers = new HashSet<>();
         while (m.find()) {
