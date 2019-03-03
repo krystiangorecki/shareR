@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity /*-implements MyRecyclerView
         Pattern p = Pattern.compile("(\\d{3}\\D{0,3}\\d{3}\\D{0,3}\\d{3})");
         numberText = numberText.replaceAll(Pattern.quote("+48"), "");
         Matcher m = p.matcher(numberText);
-        Set<String> numbers = new HashSet<>();
+        Set<String> numbers = new LinkedHashSet<>();
         while (m.find()) {
             Log.d(TAG, "found: " + m.group());
             // clean number from nonnumbers
