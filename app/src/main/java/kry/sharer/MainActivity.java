@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity /*-implements MyRecyclerView
         generateUIElements(numbers);
     }
 
-    private Set<String> parseNumbersFromText(String numberText) {
+    public Set<String> parseNumbersFromText(String numberText) {
         // Łąkowa 555 taki adres 123-123-123  asdf asdf 111 111 111 asdfasd fasd 777888999
-        Pattern p = Pattern.compile("(\\d{3}.+?\\d{3}.+?\\d{3})|\\d{9}");
+        Pattern p = Pattern.compile("(\\d{3}\\D{0,3}\\d{3}\\D{0,3}\\d{3})");
         numberText = numberText.replaceAll(Pattern.quote("+48"), "");
         Matcher m = p.matcher(numberText);
         Set<String> numbers = new HashSet<>();
