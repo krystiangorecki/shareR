@@ -104,10 +104,10 @@ public class MainActivity extends AppCompatActivity /*-implements MyRecyclerView
         Matcher m = p.matcher(numberText);
         Set<String> numbers = new HashSet<>();
         while (m.find()) {
-            Log.e(TAG, "found: " + m.group());
+            Log.d(TAG, "found: " + m.group());
             // clean number from nonnumbers
             String cleanNumber = m.group().replaceAll("\\D+", "");
-            //insert dashes
+            // insert dashes
             numbers.add(cleanNumber.substring(0, 3) + "-" + cleanNumber.substring(3, 6) + "-" + cleanNumber.substring(6, 9));
         }
         return numbers;
