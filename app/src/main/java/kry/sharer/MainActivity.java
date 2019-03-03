@@ -1,32 +1,30 @@
 package kry.sharer;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.LinearLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import kry.sharer.DynamicUIGenerator;
+public class MainActivity extends AppCompatActivity /*-implements MyRecyclerViewAdapter.ItemClickListener niepotrzebne klikanie na cały wiersz */ {
 
-public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "ShareR.MainActivity";
 
-    private final String TAG = "ShareR.MainActivity";
+    private MyRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get intent, action and MIME type
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
@@ -36,20 +34,49 @@ public class MainActivity extends AppCompatActivity {
                 handleSendText(intent); // Handle text being sent
             } else {
                 Log.e(TAG, "unhandled type : " + type);
-                TextView tv = (TextView) findViewById(R.id.status);
+                TextView tv = findViewById(R.id.status);
                 tv.setText(type);
             }
         } else if (Intent.ACTION_VIEW.equals(action) || Intent.ACTION_MAIN.equals(action)) {
             // normalne uruchomienie aplikacji
-            TextView tv = (TextView) findViewById(R.id.status);
+            TextView tv = findViewById(R.id.status);
             tv.setText(".");
         } else {
             Log.e(TAG, "unhandled action: " + action);
-            TextView tv = (TextView) findViewById(R.id.status);
+            TextView tv = findViewById(R.id.status);
             tv.setText(action);
         }
 
+        /*-
+        pole MyRecyclerViewAdapter adapter;
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // data to populate the RecyclerView with
+        ArrayList<String> animalNames = new ArrayList<>();
+        animalNames.add("Horse");
+        animalNames.add("Cow");
+        animalNames.add("Camel");
+        animalNames.add("Sheep");
+        animalNames.add("Goat");
+        animalNames.add("Sheep");
+        animalNames.add("Goat");
+
+        // set up the RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.rvAnimals);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new MyRecyclerViewAdapter(this, animalNames);
+        // adapter.setClickListener(this); // klikanie na cały wiersz - niepotrzebne
+        recyclerView.setAdapter(adapter);*/
     }
+
+    // klikanie na cały wiersz - niepotrzebne
+    /*-@Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }*/
+
 
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -59,7 +86,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void processSharedText(String numberText) {
-        // 123-123-123  asdf asdf 111 111 111 asdfasd fasd 777888999
+        Set<String> numbers = parseNumbersFromText(numberText);
+        TextView tv = findViewById(R.id.status);
+        if (numbers.isEmpty()) {
+            tv.setText("no numbers");
+            finish();
+            return;
+        }
+
+        generateUIElements(numbers);
+    }
+
+    private Set<String> parseNumbersFromText(String numberText) {
+        // Łąkowa 555 taki adres 123-123-123  asdf asdf 111 111 111 asdfasd fasd 777888999
         Pattern p = Pattern.compile("(\\d{3}.+?\\d{3}.+?\\d{3})|\\d{9}");
         numberText = numberText.replaceAll(Pattern.quote("+48"), "");
         Matcher m = p.matcher(numberText);
@@ -71,17 +110,20 @@ public class MainActivity extends AppCompatActivity {
             //insert dashes
             numbers.add(cleanNumber.substring(0, 3) + "-" + cleanNumber.substring(3, 6) + "-" + cleanNumber.substring(6, 9));
         }
-        TextView tv = (TextView) findViewById(R.id.status);
-        if (numbers.isEmpty()) {
-            tv.setText("no numbers");
-            finish();
-            return;
-        }
-
-        LinearLayout linearLayout = findViewById(R.id.main_layout);
-        linearLayout.setPadding(0, 200, 0, 0);
-        new DynamicUIGenerator(this).generateDynamicUI(linearLayout, numbers);
-
+        return numbers;
     }
 
+    private void generateUIElements(Set<String> numbers) {
+        // set up the RecyclerView
+        RecyclerView recyclerView = this.findViewById(R.id.rvAnimals);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new MyRecyclerViewAdapter(this, new ArrayList<String>());
+        // adapter.setClickListener(this); // klikanie na cały wiersz - niepotrzebne
+        recyclerView.setAdapter(adapter);
+
+        for (String number : numbers) {
+            adapter.addItem(number);
+        }
+        adapter.notifyDataSetChanged();
+    }
 }

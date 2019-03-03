@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="0dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="0dp"
     android:theme="@style/CustomTheme"
-    app:layout_dodgeInsetEdges="all"
-    app:layout_insetEdge="none"
     tools:context=".MainActivity">
 
     <TextView
@@ -20,34 +14,18 @@
         android:layout_height="wrap_content"
         android:text="" />
 
-  <!--  <Button
-        android:id="@+id/button7"
-        android:layout_width="wrap_content"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="norm" />
+        android:paddingTop="70dp">
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="0dp"
-        android:text="0" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvAnimals"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foregroundGravity="center_horizontal"
+            android:scrollbars="vertical" />
 
-    <Button
-        android:id="@+id/button5"
-        style="@android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="0dp"
-        android:text="at0s" />
-
-    <Button
-        android:id="@+id/button6"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="0dp"
-        android:text="q0s" /> -->
-
-
+    </RelativeLayout>
 </LinearLayout>
