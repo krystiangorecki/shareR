@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity /*-implements MyRecyclerView
 
         if ((intent.getFlags() & PendingIntent.FLAG_CANCEL_CURRENT) != PendingIntent.FLAG_CANCEL_CURRENT)
         {
-            // Restarting the same activity with different flags to compaensate for different behaviour 
+            // Restarting the same activity with different flags to compensate for different behaviour 
             // when sharing selected text and when sharing link with phone number.
             intent.setFlags(PendingIntent.FLAG_CANCEL_CURRENT);
             startActivity(intent);
