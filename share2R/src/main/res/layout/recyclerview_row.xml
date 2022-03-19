@@ -13,11 +13,11 @@
         android:paddingRight="40dp" />
 
     <Button
-        android:id="@+id/buttonR"
+        android:id="@+id/buttonE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="0dp"
-        android:text="@string/r" />
+        android:text="@string/e" />
 
     <Button
         android:id="@+id/buttonG"

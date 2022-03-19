@@ -16,11 +16,11 @@ class PageVisitor {
         this.ctx = ctx;
     }
 
-    public void visitSearchPageR(String number) {
+    public void visitSearchPageE(String number) {
         Toast.makeText(ctx, number, Toast.LENGTH_LONG).show();
-        byte[] decodedBytes = Base64.decode("b2tzYQ==", Base64.DEFAULT);
-        String r = new String(decodedBytes, StandardCharsets.UTF_8);
-        visitUrl("https://www.r" + r + ".pl/pl/szukaj/?anons_type=0&anons_state=0&anons_city_part=&cenaod=0&cenado=0&cenapoldo=0&cena15do=0&cenanocdo=0&wiekod=0&wiekdo=0&wagaod=0&wagado=0&wzrostod=0&wzrostdo=0&biustod=0&biustdo=0&jezyk=&dzien=0&hod=&hdo=&wyjazdy=0&name=&nr_tel=" + number + "&key_word=#show");
+        byte[] decodedBytes = Base64.decode("c2NvcnQ=", Base64.DEFAULT);
+        String e = new String(decodedBytes, StandardCharsets.UTF_8);
+        visitUrl("https://www.e" + e + ".pl/szukaj/?q=" + number);
     }
 
     public void visitSearchPageG(String number) {

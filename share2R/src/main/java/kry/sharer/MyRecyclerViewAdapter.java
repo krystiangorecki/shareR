@@ -58,13 +58,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         ViewHolder(View itemView) {
             super(itemView);
             labelNumber = itemView.findViewById(R.id.labelNumber);
-            buttonR = itemView.findViewById(R.id.buttonR);
+            buttonR = itemView.findViewById(R.id.buttonE);
             buttonG = itemView.findViewById(R.id.buttonG);
             buttonR.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     final String number = mData.get(getAdapterPosition());
-                    new PageVisitor(ctx).visitSearchPageR(number);
+                    new PageVisitor(ctx).visitSearchPageE(number);
                 }
             });
             buttonG.setOnClickListener(new View.OnClickListener() {

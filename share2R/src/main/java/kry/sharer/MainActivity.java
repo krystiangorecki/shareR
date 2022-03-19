@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity /*-implements MyRecyclerView
 
     private void generateUIElements(Set<String> numbers) {
         // set up the RecyclerView
-        RecyclerView recyclerView = this.findViewById(R.id.rvAnimals);
+        RecyclerView recyclerView = this.findViewById(R.id.rvNumbers);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyRecyclerViewAdapter(this, new ArrayList<String>());
         // adapter.setClickListener(this); // klikanie na cały wiersz - niepotrzebne
